@@ -30,8 +30,8 @@ const ASNInfo = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-sm text-muted-foreground">Website</span>
-              <a href="https://luxxysystems.net" className="font-medium text-network-lightBlue hover:underline">
-                https://luxxysystems.net
+              <a href="https://as214199.net" className="font-medium text-network-lightBlue hover:underline">
+                https://as214199.net
               </a>
             </div>
           </div>
@@ -48,7 +48,7 @@ const ASNInfo = () => {
             <div className="flex flex-col">
               <span className="text-sm text-muted-foreground">Looking Glass</span>
               <a href="/looking-glass" className="font-medium text-network-lightBlue hover:underline">
-                https://luxxysystems.net/looking-glass
+                https://as214199.net/looking-glass
               </a>
             </div>
             <div className="flex flex-col">

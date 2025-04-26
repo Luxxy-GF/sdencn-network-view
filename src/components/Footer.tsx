@@ -28,9 +28,9 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4 text-network-highlight">Contact</h3>
             <ul className="space-y-2 text-sm">
-              <li>NOC: noc@luxxysystems.net</li>
-              <li>Peering: peering@luxxysystems.net</li>
-              <li>Abuse: abuse@luxxysystems.net</li>
+              <li>NOC: noc@as214199.net</li>
+              <li>Peering: peering@as214199.net</li>
+              <li>Abuse: abuse@as214199.net</li>
             </ul>
           </div>
         </div>

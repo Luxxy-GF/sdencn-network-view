@@ -20,7 +20,7 @@ const Index = () => {
             <div className="lg:flex lg:items-center lg:justify-between">
               <div className="lg:w-1/2">
                 <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
-                  <span className="text-network-highlight">SDENCN</span> Network
+                  <span className="text-network-highlight">Luxxysystems</span> Network
                 </h1>
                 <h2 className="text-2xl sm:text-3xl font-medium mb-6">Autonomous System AS214199</h2>
                 <p className="text-lg mb-8 opacity-90">

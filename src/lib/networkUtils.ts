@@ -28,44 +28,44 @@ export const getSubnets = (): SubnetInfo[] => {
       subnet: '5.231.32.0/24',
       description: 'Infrastructure',
       allocated: true,
-      usage: 87,
+      usage: 20,
       type: 'IPv4'
     },
+    // {
+    //   id: '2',
+    //   subnet: '5.231.33.0/24',
+    //   description: 'Customer Allocations',
+    //   allocated: true,
+    //   usage: 74,
+    //   type: 'IPv4'
+    // },
+    // {
+    //   id: '3',
+    //   subnet: '5.231.34.0/24',
+    //   description: 'CDN Network',
+    //   allocated: true,
+    //   usage: 92,
+    //   type: 'IPv4'
+    // },
+    // {
+    //   id: '4',
+    //   subnet: '5.231.35.0/24',
+    //   description: 'Reserved',
+    //   allocated: false,
+    //   usage: 0,
+    //   type: 'IPv4'
+    // },
     {
       id: '2',
-      subnet: '5.231.33.0/24',
-      description: 'Customer Allocations',
-      allocated: true,
-      usage: 74,
-      type: 'IPv4'
-    },
-    {
-      id: '3',
-      subnet: '5.231.34.0/24',
-      description: 'CDN Network',
-      allocated: true,
-      usage: 92,
-      type: 'IPv4'
-    },
-    {
-      id: '4',
-      subnet: '5.231.35.0/24',
-      description: 'Reserved',
-      allocated: false,
-      usage: 0,
-      type: 'IPv4'
-    },
-    {
-      id: '5',
-      subnet: '2a0f:0:1::/48',
+      subnet: '2a0f:85c1:897::/48',
       description: 'IPv6 Infrastructure',
       allocated: true,
       usage: 15,
       type: 'IPv6'
     },
     {
-      id: '6',
-      subnet: '2a0f:0:2::/48',
+      id: '3',
+      subnet: '2a0f:9400:7e16::/48',
       description: 'IPv6 Customer Allocations',
       allocated: true,
       usage: 8,
