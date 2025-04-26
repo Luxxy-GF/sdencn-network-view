@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,11 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				network: {
+					blue: '#0a192f',
+					lightBlue: '#4a90e2',
+					highlight: '#64ffda'
 				}
 			},
 			borderRadius: {
@@ -84,11 +90,26 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-ping': {
+					'0%': { 
+						transform: 'scale(0.95)',
+						boxShadow: '0 0 0 0 rgba(100, 255, 218, 0.7)' 
+					},
+					'70%': { 
+						transform: 'scale(1)',
+						boxShadow: '0 0 0 10px rgba(100, 255, 218, 0)' 
+					},
+					'100%': { 
+						transform: 'scale(0.95)',
+						boxShadow: '0 0 0 0 rgba(100, 255, 218, 0)' 
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-ping': 'pulse-ping 2s infinite'
 			}
 		}
 	},
