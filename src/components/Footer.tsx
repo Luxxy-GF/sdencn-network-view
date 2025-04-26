@@ -10,7 +10,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <Network className="h-6 w-6 text-network-highlight mr-2" />
-              <span className="font-bold text-lg">SDENCN</span>
+              <span className="font-bold text-lg">Luxxysystems</span>
             </div>
             <p className="text-sm opacity-80">
               AS214199 Network Information Portal
@@ -28,15 +28,15 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4 text-network-highlight">Contact</h3>
             <ul className="space-y-2 text-sm">
-              <li>NOC: noc@sdencn.net</li>
-              <li>Peering: peering@sdencn.net</li>
-              <li>Abuse: abuse@sdencn.net</li>
+              <li>NOC: noc@luxxysystems.net</li>
+              <li>Peering: peering@luxxysystems.net</li>
+              <li>Abuse: abuse@luxxysystems.net</li>
             </ul>
           </div>
         </div>
         <div className="mt-8 pt-6 border-t border-gray-700">
           <p className="text-sm text-center opacity-80">
-            &copy; {new Date().getFullYear()} SDENCN Network | AS214199
+            &copy; {new Date().getFullYear()} Luxxysystems Network | AS214199
           </p>
         </div>
       </div>

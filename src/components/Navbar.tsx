@@ -1,10 +1,13 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Network } from 'lucide-react';
+import { Network, Sun, Moon } from 'lucide-react';
+import { useTheme } from './theme-provider';
+import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   return (
     <nav className="bg-network-blue text-white shadow-md">
@@ -13,7 +16,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center space-x-2">
               <Network className="h-8 w-8 text-network-highlight" />
-              <span className="font-bold text-xl tracking-tight">SDENCN AS214199</span>
+              <span className="font-bold text-xl tracking-tight">Luxxysystems AS214199</span>
             </Link>
           </div>
           
@@ -22,6 +25,19 @@ const Navbar = () => {
             <Link to="/peering" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-network-lightBlue hover:bg-opacity-20">Peering</Link>
             <Link to="/subnets" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-network-lightBlue hover:bg-opacity-20">Subnets</Link>
             <Link to="/looking-glass" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-network-lightBlue hover:bg-opacity-20">Looking Glass</Link>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="ml-4"
+            >
+              {theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+              <span className="sr-only">Toggle theme</span>
+            </Button>
           </div>
           
           <div className="-mr-2 flex md:hidden">
@@ -52,6 +68,19 @@ const Navbar = () => {
             <Link to="/peering" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-network-lightBlue hover:bg-opacity-20">Peering</Link>
             <Link to="/subnets" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-network-lightBlue hover:bg-opacity-20">Subnets</Link>
             <Link to="/looking-glass" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-network-lightBlue hover:bg-opacity-20">Looking Glass</Link>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="w-full justify-start"
+            >
+              {theme === "dark" ? (
+                <Sun className="h-5 w-5 mr-2" />
+              ) : (
+                <Moon className="h-5 w-5 mr-2" />
+              )}
+              Toggle theme
+            </Button>
           </div>
         </div>
       )}
