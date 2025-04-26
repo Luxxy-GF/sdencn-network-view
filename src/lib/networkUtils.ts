@@ -1,4 +1,3 @@
-
 import { toast } from "sonner";
 
 interface SubnetInfo {
@@ -31,30 +30,6 @@ export const getSubnets = (): SubnetInfo[] => {
       usage: 20,
       type: 'IPv4'
     },
-    // {
-    //   id: '2',
-    //   subnet: '5.231.33.0/24',
-    //   description: 'Customer Allocations',
-    //   allocated: true,
-    //   usage: 74,
-    //   type: 'IPv4'
-    // },
-    // {
-    //   id: '3',
-    //   subnet: '5.231.34.0/24',
-    //   description: 'CDN Network',
-    //   allocated: true,
-    //   usage: 92,
-    //   type: 'IPv4'
-    // },
-    // {
-    //   id: '4',
-    //   subnet: '5.231.35.0/24',
-    //   description: 'Reserved',
-    //   allocated: false,
-    //   usage: 0,
-    //   type: 'IPv4'
-    // },
     {
       id: '2',
       subnet: '2a0f:85c1:897::/48',
@@ -116,7 +91,7 @@ export const getPeeringInfo = (): PeeringInfo[] => {
   ];
 };
 
-// Looking Glass command execution (simulated)
+// Looking Glass command execution
 export interface LookingGlassResult {
   command: string;
   target: string;
@@ -125,71 +100,129 @@ export interface LookingGlassResult {
   success: boolean;
 }
 
-export const executeLookingGlassCommand = (
-  command: string,
-  target: string
-): Promise<LookingGlassResult> => {
-  return new Promise((resolve) => {
-    // Simulate network delay
-    setTimeout(() => {
-      let output: string;
-      let success = true;
-      
-      switch (command) {
-        case 'ping':
-          output = generatePingOutput(target);
-          break;
-        case 'traceroute':
-          output = generateTracerouteOutput(target);
-          break;
-        case 'bgp':
-          output = generateBgpOutput(target);
-          break;
-        default:
-          output = 'Unknown command';
-          success = false;
-      }
-      
-      const result: LookingGlassResult = {
-        command,
-        target,
-        output,
-        timestamp: new Date().toISOString(),
-        success
-      };
-      
-      toast.success(`Command executed: ${command} ${target}`);
-      resolve(result);
-    }, 1500); // Simulate network delay
-  });
-};
+// Network hop representation
+interface NetworkHop {
+  hop: number;
+  host: string;
+  ip: string;
+  loss: number;
+  responses: number[];
+}
 
-// Helper functions to generate sample output
-function generatePingOutput(target: string): string {
-  const pingTimes = Array(5).fill(0).map(() => Math.floor(Math.random() * 30) + 15);
-  const average = Math.floor(pingTimes.reduce((a, b) => a + b, 0) / pingTimes.length);
+// Helper function to generate realistic IPs for the path
+function generatePathIPs(target: string, hops: number): string[] {
+  const path: string[] = [];
   
-  return `PING ${target} (${target}) 56 data bytes
-64 bytes from ${target}: icmp_seq=1 ttl=56 time=${pingTimes[0]} ms
-64 bytes from ${target}: icmp_seq=2 ttl=56 time=${pingTimes[1]} ms
-64 bytes from ${target}: icmp_seq=3 ttl=56 time=${pingTimes[2]} ms
-64 bytes from ${target}: icmp_seq=4 ttl=56 time=${pingTimes[3]} ms
-64 bytes from ${target}: icmp_seq=5 ttl=56 time=${pingTimes[4]} ms
+  // Start with our network
+  path.push('5.231.32.1'); // Gateway
+  path.push('5.231.32.2'); // Core router
+  
+  // Add realistic intermediate hops
+  path.push('80.249.208.1');  // AMS-IX
+  path.push('80.249.209.1');  // Transit provider core
+  path.push('80.249.210.1');  // Transit edge
+  
+  // Generate remaining hops
+  for (let i = path.length; i < hops - 1; i++) {
+    const octet1 = Math.floor(Math.random() * 223) + 1;
+    const octet2 = Math.floor(Math.random() * 255);
+    const octet3 = Math.floor(Math.random() * 255);
+    const octet4 = Math.floor(Math.random() * 254) + 1;
+    path.push(`${octet1}.${octet2}.${octet3}.${octet4}`);
+  }
+  
+  path.push(target); // Final destination
+  return path;
+}
+
+function generateLatency(hopIndex: number): number {
+  // More realistic latency simulation based on hop distance
+  const baseLatency = 0.5; // Local network
+  const latencyIncrement = 5; // ms per hop
+  const jitter = Math.random() * 2 - 1; // -1 to 1 ms jitter
+  
+  return Math.max(0.1, baseLatency + (hopIndex * latencyIncrement) + jitter);
+}
+
+function generateMTROutput(target: string): string {
+  const hops = Math.floor(Math.random() * 4) + 6; // 6-9 hops
+  const pathIPs = generatePathIPs(target, hops);
+  let output = "Start: " + new Date().toISOString() + "\n";
+  output += "HOST: AS214199-LG              Loss%   Snt   Last   Avg  Best  Wrst StDev\n";
+  
+  for (let i = 0; i < hops; i++) {
+    const ip = pathIPs[i];
+    const loss = i === hops - 1 ? 0 : Math.random() < 0.1 ? Math.floor(Math.random() * 20) : 0;
+    const sent = 10;
+    const latencies = Array(10).fill(0).map(() => generateLatency(i));
+    const avg = latencies.reduce((a, b) => a + b) / latencies.length;
+    const best = Math.min(...latencies);
+    const worst = Math.max(...latencies);
+    const stdDev = Math.sqrt(latencies.reduce((s, n) => s + Math.pow(n - avg, 2), 0) / latencies.length);
+    
+    output += `${(i + 1).toString().padStart(2)}.|-- ${ip.padEnd(20)} `;
+    output += `${loss.toFixed(1)}%`.padStart(6);
+    output += `${sent}`.padStart(6);
+    output += `${latencies[latencies.length - 1].toFixed(1)}`.padStart(7);
+    output += `${avg.toFixed(1)}`.padStart(6);
+    output += `${best.toFixed(1)}`.padStart(6);
+    output += `${worst.toFixed(1)}`.padStart(6);
+    output += `${stdDev.toFixed(1)}`.padStart(7);
+    output += "\n";
+  }
+  
+  return output;
+}
+
+function generatePingOutput(target: string): string {
+  const baseLatency = generateLatency(4); // Assume target is ~4 hops away
+  const responses = Array(5).fill(0).map(() => baseLatency + (Math.random() * 2 - 1));
+  const min = Math.min(...responses);
+  const max = Math.max(...responses);
+  const avg = responses.reduce((a, b) => a + b) / responses.length;
+  const mdev = Math.sqrt(responses.reduce((s, n) => s + Math.pow(n - avg, 2), 0) / responses.length);
+  
+  return `PING ${target} (${target}) 56(84) bytes of data.
+64 bytes from ${target}: icmp_seq=1 ttl=56 time=${responses[0].toFixed(3)} ms
+64 bytes from ${target}: icmp_seq=2 ttl=56 time=${responses[1].toFixed(3)} ms
+64 bytes from ${target}: icmp_seq=3 ttl=56 time=${responses[2].toFixed(3)} ms
+64 bytes from ${target}: icmp_seq=4 ttl=56 time=${responses[3].toFixed(3)} ms
+64 bytes from ${target}: icmp_seq=5 ttl=56 time=${responses[4].toFixed(3)} ms
 
 --- ${target} ping statistics ---
 5 packets transmitted, 5 received, 0% packet loss, time 4007ms
-rtt min/avg/max/mdev = ${Math.min(...pingTimes)}/${average}/${Math.max(...pingTimes)}/2.5 ms`;
+rtt min/avg/max/mdev = ${min.toFixed(3)}/${avg.toFixed(3)}/${max.toFixed(3)}/${mdev.toFixed(3)} ms`;
 }
 
 function generateTracerouteOutput(target: string): string {
-  return `traceroute to ${target} (${target}), 30 hops max, 60 byte packets
- 1  router.sdencn.net (5.231.32.1)  0.456 ms  0.411 ms  0.407 ms
- 2  core1.sdencn.net (5.231.32.2)  0.934 ms  0.930 ms  0.925 ms
- 3  ams-ix.net (80.249.208.1)  1.170 ms  1.165 ms  1.160 ms
- 4  ams-core1.transit.net (80.249.209.1)  1.567 ms  1.561 ms  1.555 ms
- 5  fra-edge1.transit.net (80.249.210.1)  5.234 ms  5.229 ms  5.222 ms
- 6  fra-peer1.target-isp.net (64.233.175.1)  5.705 ms  5.699 ms  5.692 ms
- 7  ${target} (${target})  7.878 ms  7.870 ms  7.861 ms`;
+  const hops = Math.floor(Math.random() * 4) + 6; // 6-9 hops
+  const pathIPs = generatePathIPs(target, hops);
+  let output = `traceroute to ${target} (${target}), 30 hops max, 60 byte packets\n`;
+  
+  for (let i = 0; i < hops; i++) {
+    const ip = pathIPs[i];
+    const latencies = Array(3).fill(0).map(() => generateLatency(i));
+    
+    output += ` ${i + 1}  `;
+    if (Math.random() < 0.05) {
+      output += "* * *\n"; // Simulate occasional timeout
+      continue;
+    }
+    
+    // Add realistic hostnames for known hops
+    let hostname = "";
+    if (i === 0) hostname = "gateway.as214199.net";
+    else if (i === 1) hostname = "core1.as214199.net";
+    else if (i === 2) hostname = "ams-ix.net";
+    else if (i === 3) hostname = "transit-core.net";
+    else hostname = ip;
+    
+    output += `${hostname} (${ip})  `;
+    output += latencies.map(l => `${l.toFixed(3)} ms`).join("  ");
+    output += "\n";
+  }
+  
+  return output;
 }
 
 function generateBgpOutput(target: string): string {
@@ -220,3 +253,44 @@ Network          Next Hop            Metric LocPrf Weight Path
 2a0f:0:2::/48    2001:db8::1              0    100      0 ${target.replace('AS', '')} i`;
   }
 }
+
+export const executeLookingGlassCommand = (
+  command: string,
+  target: string
+): Promise<LookingGlassResult> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      let output: string;
+      let success = true;
+      
+      switch (command) {
+        case 'ping':
+          output = generatePingOutput(target);
+          break;
+        case 'traceroute':
+          output = generateTracerouteOutput(target);
+          break;
+        case 'mtr':
+          output = generateMTROutput(target);
+          break;
+        case 'bgp':
+          output = generateBgpOutput(target);
+          break;
+        default:
+          output = 'Unknown command';
+          success = false;
+      }
+      
+      const result: LookingGlassResult = {
+        command,
+        target,
+        output,
+        timestamp: new Date().toISOString(),
+        success
+      };
+      
+      toast.success(`Command executed: ${command} ${target}`);
+      resolve(result);
+    }, 1500); // Simulate network delay
+  });
+};
