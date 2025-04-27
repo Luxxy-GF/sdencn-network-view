@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Badge } from '@/components/ui/badge';
 import { executeLookingGlassCommand, LookingGlassResult } from '@/lib/networkUtils';
 import { Globe } from 'lucide-react';
 
@@ -92,8 +93,9 @@ const LookingGlass = () => {
                         <Label htmlFor="mtr" className="font-normal cursor-pointer">MTR</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="bgp" id="bgp" />
+                        <RadioGroupItem disabled value="bgp" id="bgp" />
                         <Label htmlFor="bgp" className="font-normal cursor-pointer">BGP Route</Label>
+                        <Badge className="ml-2 relative">Disabled</Badge>
                       </div>
                     </RadioGroup>
                   </div>
