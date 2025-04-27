@@ -100,7 +100,8 @@ export interface LookingGlassResult {
   success: boolean;
 }
 
-const CARAMEL_API_URL = process.env.CARAMEL_API_URL || 'http://localhost:33046';
+// Using Vite's environment variable syntax
+const CARAMEL_API_URL = import.meta.env.VITE_CARAMEL_API_URL || 'http://localhost:33046';
 
 export const executeLookingGlassCommand = async (
   command: string,
