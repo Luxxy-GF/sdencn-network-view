@@ -34,7 +34,7 @@ const PeeringPolicy = () => {
             
             <div>
               <h3 className="font-semibold mb-2">Contact Information</h3>
-              <p>To request peering with AS214199, please contact us at <span className="text-network-lightBlue">peering@sdencn.net</span> or via our <a href="https://www.peeringdb.com/net/28818" target="_blank" rel="noopener noreferrer" className="text-network-lightBlue hover:underline">PeeringDB profile</a>.</p>
+              <p>To request peering with AS214199, please contact us at <span className="text-network-lightBlue">peering@as214199.net</span> or via our <a href="https://www.peeringdb.com/net/214199" target="_blank" rel="noopener noreferrer" className="text-network-lightBlue hover:underline">PeeringDB profile</a>.</p>
             </div>
             
             <div>

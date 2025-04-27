@@ -11,13 +11,13 @@ const PeeringContact = () => {
         </p>
         <div className="flex justify-center gap-4">
           <a 
-            href="mailto:peering@sdencn.net"
+            href="mailto:peering@as214199.net"
             className="bg-network-highlight text-network-blue px-6 py-3 rounded-lg font-medium transition-all hover:bg-opacity-90"
           >
             Email Us
           </a>
           <a 
-            href="https://www.peeringdb.com/net/28818"
+            href="https://www.peeringdb.com/net/214199"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-transparent border border-network-highlight text-network-highlight px-6 py-3 rounded-lg font-medium transition-all hover:bg-network-highlight hover:bg-opacity-10"

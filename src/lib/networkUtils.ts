@@ -28,7 +28,7 @@ export const getSubnets = (): SubnetInfo[] => {
       subnet: '5.231.32.0/24',
       description: 'Infrastructure',
       allocated: true,
-      usage: 20,
+      usage: 5,
       type: 'IPv4'
     },
     {
@@ -36,7 +36,7 @@ export const getSubnets = (): SubnetInfo[] => {
       subnet: '2a0f:85c1:897::/48',
       description: 'IPv6 Infrastructure',
       allocated: true,
-      usage: 15,
+      usage: 1,
       type: 'IPv6'
     },
     {
@@ -44,7 +44,7 @@ export const getSubnets = (): SubnetInfo[] => {
       subnet: '2a0f:9400:7e16::/48',
       description: 'IPv6 Customer Allocations',
       allocated: true,
-      usage: 8,
+      usage: 1,
       type: 'IPv6'
     }
   ];
@@ -55,38 +55,11 @@ export const getPeeringInfo = (): PeeringInfo[] => {
   return [
     {
       id: '1',
-      name: 'Hurricane Electric',
-      asn: 'AS6939',
+      name: 'Ferdinand Zink trading as Tube-Hosting',
+      asn: 'AS49581',
       location: 'Amsterdam, Netherlands',
       ipv4: '123.45.67.89',
       ipv6: '2001:db8::1',
-      speed: '10 Gbps'
-    },
-    {
-      id: '2',
-      name: 'AMS-IX',
-      asn: 'AS1200',
-      location: 'Amsterdam, Netherlands',
-      ipv4: '123.45.67.90',
-      ipv6: '2001:db8::2',
-      speed: '10 Gbps'
-    },
-    {
-      id: '3',
-      name: 'Cloudflare',
-      asn: 'AS13335',
-      location: 'Frankfurt, Germany',
-      ipv4: '123.45.67.91',
-      ipv6: '2001:db8::3',
-      speed: '10 Gbps'
-    },
-    {
-      id: '4',
-      name: 'Akamai',
-      asn: 'AS20940',
-      location: 'London, UK',
-      ipv4: '123.45.67.92',
-      ipv6: '2001:db8::4',
       speed: '10 Gbps'
     }
   ];

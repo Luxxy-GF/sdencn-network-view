@@ -130,7 +130,7 @@ const Subnets = () => {
           </div>
         </section>
         
-        {/* Network Information */}
+        {/* Network Information
         <section className="py-8 bg-muted">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <Card className="network-card">
@@ -160,19 +160,19 @@ const Subnets = () => {
                   <p className="mb-2">All our prefixes are secured with RPKI (Resource Public Key Infrastructure):</p>
                   <div className="code-block">
                     <pre className="text-sm">
-{`ROA: 5.231.32.0/22, ASN 214199, Max Length /24
+{`ROA: 5.231.32.0/24, ASN 214199, Max Length /24
 ROA: 2a0f:0:0::/48, ASN 214199, Max Length /48`}
                     </pre>
                   </div>
                   <p className="mt-2 mb-2">Our prefixes are also registered in the RIPE IRR database:</p>
                   <div className="code-block">
                     <pre className="text-sm">
-{`route:          5.231.32.0/22
-descr:          SDENCN Network
+{`route:          5.231.32.0/24
+descr:           Luxxysystems Network
 origin:         AS214199
-mnt-by:         SDENCN-MNT
-created:        2023-01-15
-last-modified:  2023-01-15
+mnt-by:         Luxxy-MNT
+created:        2024-09-14
+last-modified:  2025-01-17
 source:         RIPE`}
                     </pre>
                   </div>
@@ -180,7 +180,7 @@ source:         RIPE`}
               </CardContent>
             </Card>
           </div>
-        </section>
+        </section> */}
       </main>
       
       <Footer />

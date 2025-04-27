@@ -63,7 +63,7 @@ const Index = () => {
                 <div className="flex justify-center mb-4">
                   <Server className="h-12 w-12 text-network-lightBlue" />
                 </div>
-                <h3 className="text-2xl font-bold">5.231.32.0/22</h3>
+                <h3 className="text-2xl font-bold">5.231.32.0/24</h3>
                 <p className="text-muted-foreground">IPv4 Address Space</p>
               </Card>
               
@@ -168,7 +168,7 @@ const Index = () => {
                     Check our PeeringDB profile for peering policies, locations, and contact information.
                   </p>
                   <a 
-                    href="https://www.peeringdb.com/net/28818"
+                    href="https://www.peeringdb.com/net/214199"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center text-network-lightBlue hover:underline"

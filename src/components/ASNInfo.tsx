@@ -70,7 +70,7 @@ const ASNInfo = () => {
           <p className="text-sm text-muted-foreground">
             View our complete peering information and request peering on 
             <a 
-              href="https://www.peeringdb.com/net/28818" 
+              href="https://www.peeringdb.com/net/214199" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="ml-1 text-network-lightBlue hover:underline"
