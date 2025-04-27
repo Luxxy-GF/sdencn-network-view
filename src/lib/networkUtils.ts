@@ -1,3 +1,4 @@
+
 import { toast } from "sonner";
 
 interface SubnetInfo {
@@ -5,7 +6,7 @@ interface SubnetInfo {
   subnet: string;
   description: string;
   allocated: boolean;
-  usage: number; // percentage
+  usage: number;
   type: 'IPv4' | 'IPv6';
 }
 
@@ -99,53 +100,53 @@ export interface LookingGlassResult {
   success: boolean;
 }
 
-const CARAMEL_API_URL = 'http://localhost:3000'; // Default development URL, replace with your actual Caramel backend URL
+const CARAMEL_API_URL = process.env.CARAMEL_API_URL || 'http://localhost:33046';
 
 export const executeLookingGlassCommand = async (
   command: string,
   target: string
 ): Promise<LookingGlassResult> => {
   try {
-    let endpoint: string;
-    
-    // Map frontend commands to Caramel API endpoints
+    // Map frontend commands to Caramel API types
+    let type: string;
     switch (command) {
       case 'ping':
-        endpoint = '/api/ping';
+        type = 'ping';
         break;
       case 'traceroute':
-        endpoint = '/api/traceroute';
+        type = 'traceroute';
         break;
       case 'mtr':
-        endpoint = '/api/mtr';
+        type = 'mtr';
         break;
       case 'bgp':
-        endpoint = target.includes('/') ? '/api/bgp/prefix' : '/api/bgp/asn';
+        type = 'bgp';
         break;
       default:
         throw new Error('Unknown command');
     }
 
-    const response = await fetch(`${CARAMEL_API_URL}${endpoint}`, {
+    const response = await fetch(`${CARAMEL_API_URL}/lg`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        target: target
+        type,
+        target
       }),
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
     const data = await response.json();
     
+    if (!response.ok) {
+      throw new Error(data.error || `HTTP error! status: ${response.status}`);
+    }
+
     const result: LookingGlassResult = {
       command,
       target,
-      output: data.output || data.message || 'No output received',
+      output: data.data || 'No output received',
       timestamp: new Date().toISOString(),
       success: true
     };
