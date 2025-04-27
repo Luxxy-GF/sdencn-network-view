@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -20,7 +19,13 @@ const Index = () => {
             <div className="lg:flex lg:items-center lg:justify-between">
               <div className="lg:w-1/2">
                 <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
-                  <span className="text-network-highlight">Luxxysystems</span> Network
+                  <span 
+                    className="text-network-highlight bg-gradient-to-r from-purple-500 to-blue-500 
+                    text-transparent bg-clip-text animate-text-shimmer 
+                    bg-[length:200%_auto] bg-[0%_0%]"
+                  >
+                    Luxxysystems Network
+                  </span>
                 </h1>
                 <h2 className="text-2xl sm:text-3xl font-medium mb-6">Autonomous System AS214199</h2>
                 <p className="text-lg mb-8 opacity-90">

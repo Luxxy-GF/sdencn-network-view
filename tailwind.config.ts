@@ -25,11 +25,11 @@ export default {
         background: "#121212",
         foreground: "#f8f8f8",
         primary: {
-          DEFAULT: "#2a2a2a",
+          DEFAULT: "#6b47f5",
           foreground: "#f8f8f8"
         },
         secondary: {
-          DEFAULT: "#1a1a1a",
+          DEFAULT: "#4a90e2",
           foreground: "#f8f8f8"
         },
         destructive: {
@@ -54,8 +54,8 @@ export default {
         },
         network: {
           blue: "#121212",
-          lightBlue: "#666666",
-          highlight: "#4a4a4a"
+          lightBlue: "#4a90e2",
+          highlight: "#6b47f5"
         }
       },
       borderRadius: {
@@ -85,12 +85,21 @@ export default {
             transform: 'scale(0.95)',
             boxShadow: '0 0 0 0 rgba(100, 255, 218, 0)' 
           }
+        },
+        'text-shimmer': {
+          '0%, 100%': { 
+            backgroundPosition: '-100% 0' 
+          },
+          '50%': { 
+            backgroundPosition: '100% 0' 
+          }
         }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        'pulse-ping': 'pulse-ping 2s infinite'
+        'pulse-ping': 'pulse-ping 2s infinite',
+        'text-shimmer': 'text-shimmer 3s ease-in-out infinite'
       },
     },
   },
